@@ -26,4 +26,4 @@ A modern web application that lets you loop specific segments of YouTube videos 
 ### Installation
 1. Clone the repository:
 ```bash
-git clone https://github.com/yourusername/looptube.git
+git clone https://github.com/meghanasrividya/Loop_Tube.git

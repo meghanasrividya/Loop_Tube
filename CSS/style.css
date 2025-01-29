@@ -1,96 +1,154 @@
-body {
-    background: linear-gradient(135deg, #1a1a1a, #2d2d2d);
+/* css/style.css */
+:root {
+    --primary-color: #4a76a8;
+    --secondary-color: #3b5f8a;
+    --background-gradient: linear-gradient(135deg, #1a1a1a, #2d2d2d);
+    --glass-bg: rgba(255, 255, 255, 0.08);
+    --glass-border: rgba(255, 255, 255, 0.15);
+  }
+  
+  /* Reset browser inconsistencies */
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+  
+  body {
+    background: var(--background-gradient);
+    background-attachment: fixed;
     color: #ffffff;
     min-height: 100vh;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-}
-
-.container {
-    padding-top: 2rem;
-}
-
-.card {
-    background: rgba(255, 255, 255, 0.08);
-    backdrop-filter: blur(12px);
+    font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  }
+  
+  .container {
+    padding: 2rem 15px;
+  }
+  
+  /* Card styling with cross-browser glass effect */
+  .card {
+    background: var(--glass-bg);
     border-radius: 15px;
-    border: 1px solid rgba(255, 255, 255, 0.15);
+    border: 1px solid var(--glass-border);
     box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
-}
-
-.app-title {
+    
+    /* Fallback for backdrop-filter */
+    @supports (backdrop-filter: blur(12px)) or (-webkit-backdrop-filter: blur(12px)) {
+      background: var(--glass-bg);
+      -webkit-backdrop-filter: blur(12px);
+      backdrop-filter: blur(12px);
+    }
+  }
+  
+  .app-title {
     text-align: center;
-    font-size: 2.5rem;
-    margin-bottom: 2rem;
-    color: #4a76a8;
+    font-size: clamp(2rem, 5vw, 2.5rem);
+    margin: 1.5rem 0;
+    color: var(--primary-color);
     text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-}
-
-.form-control {
+  }
+  
+  /* Form controls with consistent focus states */
+  .form-control {
     background: rgba(255, 255, 255, 0.1);
     border: 1px solid rgba(255, 255, 255, 0.2);
     color: #ffffff;
     transition: all 0.3s ease;
-}
-
-.form-control:focus {
-    background: rgba(255, 255, 255, 0.15);
-    border-color: #4a76a8;
-    box-shadow: 0 0 8px rgba(74, 118, 168, 0.3);
-}
-
-.btn {
+    
+    &::placeholder {
+      color: rgba(255, 255, 255, 0.6);
+    }
+  
+    &:focus {
+      background: rgba(255, 255, 255, 0.15);
+      border-color: var(--primary-color);
+      box-shadow: 0 0 8px rgba(74, 118, 168, 0.3);
+    }
+  }
+  
+  /* Button styles with progressive enhancement */
+  .btn {
     padding: 12px 24px;
     border-radius: 8px;
     font-weight: 600;
-    transition: all 0.3s ease;
-}
-
-.btn-primary {
-    background: #4a76a8;
+    transition: 
+      background-color 0.3s ease,
+      transform 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    
+    &:hover {
+      transform: translateY(-2px);
+    }
+    
+    &:active {
+      transform: translateY(0);
+    }
+  }
+  
+  .btn-primary {
+    background-color: var(--primary-color);
     border: none;
-}
-
-.btn-primary:hover {
-    background: #3b5f8a;
-    transform: translateY(-2px);
-}
-
-.control-buttons {
-    display: grid;
-    gap: 1rem;
-    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
-}
-
-.loop-counter {
-    font-size: 1.4rem;
+    
+    &:hover, &:focus {
+      background-color: var(--secondary-color);
+    }
+  }
+  
+  /* Video container with aspect ratio fix */
+  #videoContainer {
+    position: relative;
+    width: 100%;
+    padding-top: 56.25%; /* 16:9 aspect ratio */
+    border-radius: 12px;
+    overflow: hidden;
+    
+    iframe {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      border: none;
+    }
+  }
+  
+  /* Loop counter with cross-browser animation */
+  .loop-counter {
+    font-size: clamp(1.2rem, 3vw, 1.4rem);
     margin-top: 1.5rem;
-    color: #4a76a8;
+    color: var(--primary-color);
     font-weight: 600;
+    
     animation: pulse 1.5s infinite;
-}
-
-@keyframes pulse {
+    -webkit-animation: pulse 1.5s infinite;
+  }
+  
+  @keyframes pulse {
     0% { transform: scale(1); }
     50% { transform: scale(1.05); }
     100% { transform: scale(1); }
-}
-
-#videoContainer {
-    border-radius: 12px;
-    overflow: hidden;
-    transition: transform 0.3s ease;
-    aspect-ratio: 16/9;
-}
-
-#videoContainer iframe {
-    width: 100%;
-    height: 100%;
-}
-
-.alert {
+  }
+  
+  /* Alerts with fixed positioning */
+  .alert {
     position: fixed;
     top: 20px;
     left: 50%;
     transform: translateX(-50%);
     z-index: 1000;
-}
+    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(5px);
+  }
+  
+  /* Mobile optimizations */
+  @media (max-width: 768px) {
+    .control-buttons {
+      grid-template-columns: 1fr;
+    }
+    
+    #videoContainer {
+      border-radius: 8px;
+    }
+  }

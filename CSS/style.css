@@ -42,7 +42,6 @@
       backdrop-filter: blur(12px);
     }
   }
-  
   .app-title {
     text-align: center;
     font-size: clamp(2rem, 5vw, 2.5rem);
@@ -72,6 +71,7 @@
   /* Button styles with progressive enhancement */
   .btn {
     padding: 12px 24px;
+    width: 200px;
     border-radius: 8px;
     font-weight: 600;
     transition: 

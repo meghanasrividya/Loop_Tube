@@ -1,6 +1,7 @@
 # 🔁 LoopTube - YouTube Segment Looper
 
-**Live Demo:** (https://meghanasrividya.github.io/Loop_Tube/)
+[**▶️ Live Demo**](https://meghanasrividya.github.io/Loop_Tube/)
+
 A modern web application that lets you loop specific segments of YouTube videos with style. Perfect for musicians, dancers, and content creators who need to practice or analyze specific video sections.
 
 ## ✨ Features
